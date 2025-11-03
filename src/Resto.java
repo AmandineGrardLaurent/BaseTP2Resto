@@ -20,8 +20,6 @@ class Resto {
 				// Affiche chaque option avec un numéro associé
 				System.out.printf("[%s - %s]", (i+1), options[i].toUpperCase());
 			}
-			System.out.println("");
-			System.out.printf("Que souhaitez-vous comme %s ? [saisir le chiffre correspondant] \n", categoryName);
 	}
 		
 	/**
@@ -62,6 +60,37 @@ class Resto {
 		System.out.println("");
 	}
 	
+	/*
+	 * Demande l'option choisie et vérifie le format de la saisie
+	 */
+	public static int askAvailableNumber(Scanner scan, String categoryName, int optionsLength ) {
+		int number;
+		
+		// Bouche infinie jusqu'à ce que la saisie soit valide
+		while (true) {
+				
+				System.out.printf("Que souhaitez-vous comme %s ? [saisir le chiffre correspondant] \n", categoryName );
+				
+				// Vérifie que la saisie est bien un chiffre
+				if (!scan.hasNextInt()) {
+					System.out.println("Veuillez entrer un nombre entier.");
+					scan.next();
+					continue;
+				}
+				
+				number = scan.nextInt();
+				
+				// Vérifie que le chiffre ne dépasse pas le nombre d'options possibles
+				if (number < 1 || number > optionsLength) {
+					 System.out.printf("Merci de saisir un chiffre entre 1 et %s \n", optionsLength );
+
+					continue;
+				}
+				break; 
+			}
+			return number;
+	}
+	
 	/**
 	 * Collecte les choix du client pour toutes les catégories de menu
 	 * @param menu : Map contenant les catégories et leurs options
@@ -81,8 +110,11 @@ class Resto {
 
 	        // Affiche les options 
 	        displayMenuOptions(options, categoryName);   
-	        // Récupère le choix du client
-	        customerChoice = scan.nextInt();
+	        System.out.println("");
+	        
+			// Récupère le choix du client en faisant une vérification de la saisie
+			customerChoice = askAvailableNumber(scan, categoryName, options.length);
+
 	        // Stock le choix
 	        customerSelections[i] = getCustomerSelection(customerChoice,options);
 	        i++; 
@@ -114,9 +146,11 @@ class Resto {
 		
 		System.out.println("Bonjour, bienvenue dans notre restaurant");
 		System.out.println("------------------------------------");
+	
 		System.out.println("Combien de menus souhaitez-vous ?");
 		int nbOrder = scan.nextInt();
 		
+
 		// Boucle pour chaque commande
 		for (int i = 1; i <= nbOrder; i++) {
 			System.out.printf("----------- Commande n°%s -----------\n", i);

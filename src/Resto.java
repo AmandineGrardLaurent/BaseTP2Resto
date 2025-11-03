@@ -40,8 +40,6 @@ class Resto {
 		}
 	}
 	
-	
-	
 	/**
 	 * Affiche le résumé des choix du client pour une commande
 	 * @param customerSelections : tableau contenant les choix du client
@@ -91,8 +89,6 @@ class Resto {
 	    }
 	}
 	
-	
-	
 	// main----------------------------------------------------------------------------
 		
 	public static void main(String[] args) {
@@ -126,7 +122,6 @@ class Resto {
 			System.out.printf("----------- Commande n°%s -----------\n", i);
 			collectCustomerChoices(restaurantMenu, scan, customerSelections);
 			displayCustomerSelections(customerSelections, nbOrder);
-			
 		}
 		
 		System.out.println("");
@@ -134,5 +129,4 @@ class Resto {
 		scan.close();
 
 	}
-	
 }
